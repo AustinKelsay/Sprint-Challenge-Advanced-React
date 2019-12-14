@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from "axios";
+import Cards from "./components/Cards";
 import './App.css';
 
 class App extends React.Component {
@@ -13,11 +14,10 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:5000/api/players')
     .then((response) => {
-      console.log("Component did mount", response);
+      
       this.setState({players: response.data})
     })
     .catch(function (error) {
-      // handle error
       console.log(error);
     })
   }
@@ -25,7 +25,7 @@ class App extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <h1>Hello</h1>
+     this.state.players.length > 0 ? this.state.players.map(item => ( <Cards player={item} /> )) : null
     );
   }
 }
